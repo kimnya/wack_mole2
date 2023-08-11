@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="ko">
+	<head>
+		<meta charset="UTF-8" />
+		<title>두더지잡기 GAME</title>
+		<link rel="stylesheet" href="./css/reset.css" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+		   href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap"
+		   rel="stylesheet"
+		/>
+		<style>
+		
+		   * {
+			  font-family: 'Black Han Sans', sans-serif;
+		   }
+		  
+  
+		   @keyframes gameStart {
+			  0% {
+				 transform: translateY(-2000px);
+			  }
+  
+			  25% {
+				 transform: translateY(0px);
+			  }
+			  50% {
+				 transform: translateY(0px);
+			  }
+			  75% {
+				 transform: translateY(0px);
+			  }
+  
+			  100% {
+				 transform: translateY(0px);
+			  }
+		   }
+  
+		   @keyframes gameWin {
+			  0% {
+				 transform: translateY(-2000px);
+			  }
+  
+			  25% {
+				 transform: translateY(0px);
+			  }
+			  50% {
+				 transform: translateY(0px);
+			  }
+			  75% {
+				 transform: translateY(0px);
+			  }
+  
+			  100% {
+				 transform: translateY(0px);
+			  }
+		   }
+  
+		   #wrap {
+			  width: 1000px;
+			  margin: 0 auto;
+			  background-color: #232323;
+		   }
+  
+		   header {
+			  color: #fff;
+		   }
+  
+		   h2 {
+			  font-size: 50px;
+		   }
+  
+		   nav {
+			  width: 900px;
+			  height: 900px;
+			  margin: 0 auto;
+			  background-color: #038f43;
+			  border-radius: 30px;
+		   }
+  
+		   nav > ul {
+			  display: flex;
+			  flex-flow: row wrap;
+			  justify-content: space-around;
+			  overflow: hidden;
+		   }
+  
+		   nav > ul > li {
+			  float: left;
+			  overflow: hidden;
+			  position: relative;
+			  width: 250px;
+			  height: 250px;
+			  background-image: url(./image/땅구멍\(수정\).png);
+			  background-size: contain;
+			  background-position: center bottom;
+			  background-repeat: no-repeat;
+  
+			
+		   }
+  
+		   nav > ul > li > a {
+			  display: block;
+			  width: 250px;
+			  height: 250px;
+			  overflow: hidden;
+			  text-indent: -9999px;
+  
+			  transition: all 0.5s;
+			  
+		   }
+		   nav > ul > li > a {
+			
+			  transform: translateY(150px);
+		   }
+		   nav > ul > li > a.on {
+			  transform: translateY(20px);
+		   }
+		   nav > ul > li > a.dig{
+ transform: translateY(250px);
+		   }
+		  
+		   nav > ul > li > a > img {
+			  display: block;
+  
+			  width: 250px;
+			  height: 250px; 
+			  transition: all 0.5s;
+		   }
+  
+		   nav > ul > li:nth-child(1) > a > img {
+			  position: absolute;
+		   }
+  
+		   nav > ul > li:nth-child(2) > a > img {
+			  position: absolute;
+		   }
+  
+		   nav > ul > li:nth-child(3) > a > img {
+			  position: absolute;
+		   }
+  
+		   nav > ul > li:nth-child(4) > a > img {
+			  position: absolute;
+		   }
+  
+		   nav > ul > li:nth-child(5) > a > img {
+			  position: absolute;
+		   }
+  
+		   nav > ul > li:nth-child(6) > a > img {
+			  position: absolute;
+		   }
+  
+		   nav > ul > li:nth-child(7) > a > img {
+			  position: absolute;
+		   }
+  
+		   nav > ul > li:nth-child(8) > a > img {
+			  position: absolute;
+		   }
+  
+		   nav > ul > li:nth-child(9) > a > img {
+			  position: absolute;
+		   }
+  
+		   footer {
+			  display: flex;
+			  justify-content: center;
+			  align-items: center;
+			  position: relative;
+		   }
+  
+		   button {
+			  width: 150px;
+			  height: 150px;
+			  margin: 20px;
+			  font-size: 30px;
+			  border: 5px solid #fff;
+			  border-radius: 50%;
+			  cursor: pointer;
+		   }
+  
+		   button.left {
+			  background-color: red;
+		   }
+  
+		   button.right {
+			  background-color: yellow;
+		   }
+  
+		   button:hover {
+			  font-weight: 600;
+		   }
+		   .time {
+			  position: absolute;
+			  right: 30px;
+			  top: 70px;
+			  width: 50px;
+			  height: 50px;
+			  color: #fff;
+			  font-size: 32px;
+			  font-weight: 800;
+			  text-align: center;
+			  border: 1px solid #fff;
+			  border-radius: 50%;
+		   }
+		   /*  로또 태그들 */
+		   section {
+			  position: relative;
+		   }
+  
+		   .gold {
+			  display: none;
+			  
+		   }
+		   .lose {
+			  display: none;
+			  
+		   }
+  
+		   section > .box > ul {
+			  display: none;
+			  position: absolute;
+			  left: calc(50% - 300px);
+			  top: calc(50% - 100px);
+		   }
+  
+		   section > .box > ul > .ball {
+			  position: relative;
+			  width: 100px;
+			  height: 100px;
+			  background-color: gold;
+			  border: 1px solid gold;
+			  border-radius: 50%;
+			  z-index: 10000;
+		   }
+  
+		   section > .box > ul > li > p {
+			  position: absolute;
+			  left: 25px;
+			  top: 25px;
+			  width: 50px;
+			  height: 50px;
+			  font-size: 36px;
+			  text-align: center;
+			  line-height: 50px;
+			  border-radius: 50%;
+		   }
+  
+		   section > .box > h2 {
+			  display: none;
+			  position: absolute;
+			  left: 330px;
+			  top: 320px;
+			  font-size: 50px;
+			  text-align: center;
+			  line-height: 50px;
+			  color: #eee;
+			  text-shadow: 5px 5px 10px #333;
+		   }
+  
+		   section > .box > h2.on {
+			  animation: gameStart 1s ease-in-out 0s alternate 2;
+			  display: block;
+		   }
+  
+		   section > .box > ul.on {
+			  display: flex;
+		   }
+  
+		   div.on {
+		
+			  display: block;
+			  position: absolute;
+			  left: calc(50% - 150px);
+			  top: calc(50% - 670px);
+			  width: 300px;
+			  height: 150px;
+			  line-height: 150px;
+			  text-align: center;
+			  font-size: 50px;
+			  text-shadow: 1px 1px 3px;
+			  color: #eee;
+			  animation: gameWin 2s ease-in 0s forwards;
+		   }
+		   div.lose.on {
+			
+			  display: block;
+			  position: absolute;
+			  left: calc(50% - 150px);
+			  top: calc(50% - 670px);
+			  width: 300px;
+			  height: 150px;
+			  line-height: 150px;
+			  text-align: center;
+			  font-size: 50px;
+			  text-shadow: 1px 1px 3px;
+			  color: #eee;
+			  animation: gameWin 2s ease-in 0s forwards;
+		   }
+		   /* 로또 태그들 */
+		</style>
+	<body>
+		<div id="wrap">
+			<header>
+				<h1 class="text-center">A Game To Catch Moles</h1>
+				<h2 class="text-center">SCORE : <span>0</span>점</h2>
+			</header>
+			<section>
+				<nav>
+					<ul>
+						<li>
+							<a href="#">
+								<p>두더지1</p>
+								<img src="./image/두더지몸통(수정).png" alt="두더지" />
+							</a>
+						</li>
+
+						<li>
+							<a href="#">
+								<p>두더지2</p>
+								<img src="./image/두더지몸통(수정).png" alt="두더지" />
+							</a>
+						</li>
+
+						<li>
+							<a href="#">
+								<p>두더지3</p>
+								<img src="./image/두더지몸통(수정).png" alt="두더지" />
+							</a>
+						</li>
+
+						<li>
+							<a href="#">
+								<p>두더지4</p>
+								<img src="./image/두더지몸통(수정).png" alt="두더지" />
+							</a>
+						</li>
+
+						<li>
+							<a href="#">
+								<p>두더지5</p>
+								<img src="./image/두더지몸통(수정).png" alt="두더지" />
+							</a>
+						</li>
+
+						<li>
+							<a href="#">
+								<p>두더지6</p>
+								<img src="./image/두더지몸통(수정).png" alt="두더지" />
+							</a>
+						</li>
+
+						<li>
+							<a href="#">
+								<p>두더지7</p>
+								<img src="./image/두더지몸통(수정).png" alt="두더지" />
+							</a>
+						</li>
+
+						<li>
+							<a href="#">
+								<p>두더지8</p>
+								<img src="./image/두더지몸통(수정).png" alt="두더지" />
+							</a>
+						</li>
+
+						<li>
+							<a href="#">
+								<p>두더지9</p>
+								<img src="./image/두더지몸통(수정).png" alt="두더지" />
+							</a>
+						</li>
+					</ul>
+				</nav>
+
+				<div class="box">
+					<h2>Game Start~!!</h2>
+					<ul>
+						<li class="ball">
+							<p class="ballNum"><span></span></p>
+						</li>
+						<li class="ball">
+							<p class="ballNum"><span></span></p>
+						</li>
+						<li class="ball">
+							<p class="ballNum"><span></span></p>
+						</li>
+						<li class="ball">
+							<p class="ballNum"><span></span></p>
+						</li>
+						<li class="ball">
+							<p class="ballNum"><span></span></p>
+						</li>
+						<li class="ball">
+							<p class="ballNum"><span></span></p>
+						</li>
+					</ul>
+				</div>
+			</section>
+			<footer>
+				<button class="left">
+					GAME <br />
+					START
+				</button>
+				<button class="right">RESET</button>
+
+				<p class="time"><span>20</span></p>
+				<div class="gold">게임 승리!</div>
+				<div class="lose">게임 패배..</div>
+			</footer>
+		</div>
+
+		<script>
+
+			/*
+				1. 변수 선언이 이해가 되는가?
+				2.let 과 const의 차이점을 알고 있는가? 
+				3. 클릭 이벤트를 적용할 수 있는가? 
+				4. .forEach의 역할을 알고 있는가? 
+				5. setTimeout 과 setInteval의 역할을 알고 있는가?
+				6. clearInterval과  clearTimeout의 역할을 알고 있는가?
+				//clear를 쉽게 작동시키기 위해 setTimeout 과 setInteval을 변수에 집어 넣는것 
+				7. .classList의 역할을 알고 있는가?
+				8. .textContent의 역할을 알고 있는가? 
+			*/
+			// 스타트 버튼, 리셋버튼
+			// .left와 .right는 footer영역에 있는 button태그들이다
+			const $start_btn = document.querySelector('footer>.left');
+			const $reset = document.querySelector('.right');
+			// 스타트 버튼, 리셋버튼
+		
+			// 게임 시작 txt
+			const $gameOn = document.querySelector('section > .box > h2');
+			// 게임 시작 txt
+
+			// 스코어 선언
+			const $score = document.querySelector('header>h2>span');
+			let score = 0;
+			// 스코어 선언
+
+			// 시간제한 설정 
+			const $time = document.querySelector('.time>span');
+			let timeSecond = 20;
+			// 시간제한 설정 
+
+
+			// (...)이라는 스프레드 연산자로 유사배열인  mole을 배열로 바꿈  
+			// spread 사용해서 유사배열인 mole = querySelectorAll을 배열 형태로 바꿔줌 그런데 parentElment가 정의 되지 않았다는 오류가 뜸 
+			// js 배열 맨뒤 엔덱스 선택이 해답이 될지도 
+			const digMole = [];
+			const mole = document.querySelectorAll('nav > ul > li > a > img');
+			const $mole = [... mole]
+
+			//게임 승리,패배 txt선언
+			const $gold = document.querySelector('.gold');
+			const $lose = document.querySelector('.lose');
+			//게임 승리,패배 txt선언
+
+			//로또 관련 선언
+			const $ul = document.querySelector('section > .box > ul');
+			const $result = document.querySelectorAll('.box>ul>li>p');
+			//로또 관련 선언
+
+
+			//스타트 버튼을 누르면 게임이 시작되고 게임 스타트txt가 1.9초 동안 출현
+			const stop = $start_btn.addEventListener('click', function (evt) {
+				
+				// //게임 시작되면 머리 안보이게 숨어버림(머리가 보이면 클릭이 적용되는 문제를 해결하기 위해 적용)
+				// $mole.forEach(($m)=>{
+				// 	// $m.parentElement.classList.add('dig')
+				// })
+				// //게임 시작되면 머리 안보이게 숨어버림(머리가 보이면 클릭이 적용되는 문제를 해결하기 위해 적용)
+
+
+				//스타트 버튼을 누르면 게임이 시작되고 게임 스타트txt가 1.9초 동안 출현
+				$gameOn.classList.add('on');
+				setTimeout(() => {
+					$gameOn.classList.remove('on');
+				}, 1900);
+				//스타트 버튼을 누르면 게임이 시작되고 게임 스타트txt가 1.9초 동안 출현
+				
+				//3초마다 랜덤으로 숫자를 생성해서 그에 맞는 인덱스 값에 두더지 출현 
+				const gameOver = setInterval(function () {
+					const index = Math.floor(Math.random() * $mole.length);
+					// $mole[index].parentElement.classList.remove('dig');
+					$mole[index].parentElement.classList.add('on');
+					digMole.unshift($mole[index]);
+					$mole.splice(index,1)
+				
+					
+					
+				
+					//3.05후 자동으로 내려가게 만들어서 못잡았을때 놓친 듯한 느낌을 자연스럽게 부여
+					setTimeout(() => {
+						digMole[1].parentElement.classList.add('dig'); 
+						digMole[1].parentElement.classList.remove('on');
+						// $mole.push($mole[index])
+					}, 3050);
+					
+				
+					console.log('$mole=',$mole)
+					console.log('index=',index);
+					// console.log('molArr=',moleArr);
+					console.log('digMole=',digMole);
+				
+					//3.05초 후 자동으로 내려가게 만들어서 못잡았을때 놓친 듯한 느낌을 자연스럽게 부여
+
+
+					digMole.forEach(($m) => {
+						$m.addEventListener('click', function (evt) {
+							console.log(this === $m);
+							$m.parentElement.classList.remove('on');
+							// $m.parentElement.classList.add('dig');
+							
+						});
+					});
+				}, 3000);
+			
+					//3초마다 랜덤으로 숫자를 생성해서 그에 맞는 인덱스 값에 두더지 출현 
+
+					// 숫자를 시간에 맞춰 1초에 1씩 마이너스 시켜서 자연스럽게 제한시간으로 설정  
+					const stopIn = setInterval(() => {
+						timeSecond--;
+						$time.textContent = timeSecond;
+						// 숫자를 시간에 맞춰 1초에 1씩 마이너스 시켜서 자연스럽게 제한시간으로 설정  
+
+						//제한 시간이 0초가 되면 게임 중단 후 '게임 패배'txt 출현 
+						if (timeSecond === 0) {
+							clearInterval(gameOver);
+							timeSecond = 0;
+							clearInterval(stopIn);			
+							const $lose = document.querySelector('.lose');
+							$lose.classList.add('on');
+							//제한 시간이 0초가 되면 게임 중단 후 '게임 패배'txt 출현 
+
+					}
+					// 스코어가 600점 이상이거나 같으면 게임 중단 후 '게임 승리'txt 출현 
+					if (score >= 600) {
+						clearInterval(gameOver);
+						clearInterval(stopIn);
+						const $gold = document.querySelector('.gold');
+						$gold.classList.add('on');
+						// 스코어가 600점 이상이거나 같으면 게임 중단 후 '게임 승리'txt 출현 
+
+						// 로또 번호를 생성해서 게임 승리 시 보상으로 로또번호 출현 
+						$gold.addEventListener('click', function () {
+							$gold.classList.remove('on');
+							$ul.classList.add('on');
+							
+
+							const balls = new Array();
+							for (let k = 1; k <= 45; k++) {
+								balls.push(k);
+							}
+							
+							const lotto = [];
+							
+							for (let j = 0; j < 6; j++) {
+								const idx = Math.floor(Math.random() * balls.length);
+								lotto.push(balls[idx]);
+								balls.splice(idx, 1);
+							}
+							
+							for (let i = 0; i < lotto.length; i++) {
+								$result[i].textContent = lotto[i];
+							}
+							});
+							// 로또 번호를 생성해서 게임 승리 시 보상으로 로또번호 출현 
+						}
+					}, 1000);
+
+
+
+					// 두더지 태그 배열에서 각각에 태그에 대해 클릭이벤트 적용 
+					// 클릭시 스코어 100점씩 추가
+						$mole.forEach(($mo) => {
+								$mo.addEventListener('click', function (evt) {
+									digMole.forEach(($m)=>{
+										if($m===this){
+											score += 100;
+												$score.textContent = score;
+												console.log(score);
+												$m.parentElement.classList.add('dig')
+
+												// 두더지 태그 배열에서 각각에 태그에 대해 클릭이벤트 적용 
+												// 클릭시 스코어 100점씩 추가
+										}	
+									})
+								})
+							});
+						});
+
+			// 리셋 시작
+			$reset.addEventListener('click', function () {
+
+
+
+				window.location.reload();// 게임 리셋기능 아마 내장함수
+
+
+
+
+
+// 				// 앞선 게임에서 변화한 값들 초기화 
+// //기능 됌 리셋 누르니까 모든 두더지 원상태로 정렬
+// digMole.forEach(($m)=>{
+// 	$m.parentElement.classList.remove('on')
+// 	$m.parentElement.classList.remove('dig')
+// })
+// //기능 됌 리셋 누르니까 모든 두더지 원상태로 정렬
+
+// 				$ul.classList.remove('on');			
+// 				$gold.classList.remove('on');
+// 				$lose.classList.remove('on');
+// 				score=0
+// 				$score.textContent = score;
+// 				timeSecond = 20;
+				
+// 					$mole.forEach(($m) => {
+// 						$m.parentElement.classList.remove('on');
+// 					});
+
+// 					//digMole로 옮겨졌던 배열요소를 다시 $mole배열로 옮김
+// 					//배열 요소를 독립적으로 넣어주기 위해 스프레드 연산자 사용 
+					
+// 					$mole.push(...digMole)
+// 					console.log($mole)
+// 					console.log(digMole)
+// 					//배열 요소를 독립적으로 넣어주기 위해 스프레드 연산자 사용 
+// 					//digMole로 옮겨졌던 배열요소를 다시 $mole배열로 옮김
+					
+// 					// const 인데도 배열 메소드는 추가가(값이 변하는게) 가능하다 신기함 
+// 					// 앞선 게임에서 변화한 값들 초기화 
+
+			
+
+// 				// 새게임 시작
+// 				// 리셋 후 점수가 2배씩 증가하는 것 해결 못하겠음/ 해결~
+
+// 				$gameOn.classList.add('on');
+// 				setTimeout(() => {
+// 					$gameOn.classList.remove('on');
+// 				}, 1900);
+// 				//스타트 버튼을 누르면 게임이 시작되고 게임 스타트txt가 1.9초 동안 출현
+				
+// 				//3초마다 랜덤으로 숫자를 생성해서 그에 맞는 인덱스 값에 두더지 출현 
+// 					const gameOver = setInterval(function () {
+// 					const index = Math.floor(Math.random() * $mole.length);
+// 					// $mole[index].parentElement.classList.remove('dig');
+// 					$mole[index].parentElement.classList.add('on');
+// 					digMole.unshift($mole[index]);
+// 					$mole.splice(index,1)
+// 					//3초마다 랜덤으로 숫자를 생성해서 그에 맞는 인덱스 값에 두더지 출현 
+
+
+// 					//3.05후 자동으로 내려가게 만들어서 못잡았을때 놓친 듯한 느낌을 자연스럽게 부여
+// 					setTimeout(() => {
+// 						digMole[1].parentElement.classList.remove('on');
+// 						digMole[1].parentElement.classList.add('dig');
+// 					}, 3050);
+// 					//3.05후 자동으로 내려가게 만들어서 못잡았을때 놓친 듯한 느낌을 자연스럽게 부여
+					
+
+// 					// 두더지 클릭이벤트 
+// 					 digMole.forEach(($m) => {
+// 						$m.addEventListener('click', function (evt) {
+// 							console.log(this === $m);
+// 							$m.parentElement.classList.remove('on');
+// 						});
+// 					});
+// 				}, 3000);
+
+
+// 					// 숫자를 시간에 맞춰 1초에 1씩 마이너스 시켜서 자연스럽게 제한시간으로 설정  
+// 					const stopIn = setInterval(() => {
+// 						timeSecond--;
+// 						$time.textContent = timeSecond;
+// 						// 숫자를 시간에 맞춰 1초에 1씩 마이너스 시켜서 자연스럽게 제한시간으로 설정  
+
+// 						//제한 시간이 0초가 되면 게임 중단 후 '게임 패배'txt 출현 
+// 						if (timeSecond === 0) {
+// 							clearInterval(gameOver);
+// 							timeSecond = 0;
+// 							clearInterval(stopIn);			
+// 							const $lose = document.querySelector('.lose');
+// 							$lose.classList.add('on');
+// 							//제한 시간이 0초가 되면 게임 중단 후 '게임 패배'txt 출현 
+// 					}
+// 					// 스코어가 600점 이상이거나 같으면 게임 중단 후 '게임 승리'txt 출현 
+// 					if (score >= 600) {
+// 						clearInterval(gameOver);
+// 						clearInterval(stopIn);
+// 						const $gold = document.querySelector('.gold');
+// 						const $ul = document.querySelector('section > .box > ul');
+						
+// 						$gold.classList.add('on');
+// 						// 스코어가 600점 이상이거나 같으면 게임 중단 후 '게임 승리'txt 출현 
+
+// 						// 로또 번호를 생성해서 게임 승리 시 보상으로 로또번호 출현 
+// 						$gold.addEventListener('click', function () {
+// 							$gold.classList.remove('on');
+// 							$ul.classList.add('on');
+// 							const $result = document.querySelectorAll('.box>ul>li>p');
+
+// 							const balls = new Array();
+// 							for (let k = 1; k <= 45; k++) {
+// 								balls.push(k);
+// 							}
+							
+// 							const lotto = [];
+							
+// 							for (let j = 0; j < 6; j++) {
+// 								const idx = Math.floor(Math.random() * balls.length);
+// 								lotto.push(balls[idx]);
+// 								balls.splice(idx, 1);
+// 							}
+							
+// 							for (let i = 0; i < lotto.length; i++) {
+// 								$result[i].textContent = lotto[i];
+// 							}
+// 							});
+// 							// 로또 번호를 생성해서 게임 승리 시 보상으로 로또번호 출현 
+// 						}
+// 					}, 1000);
+
+
+
+// 					// 두더지 태그 배열에서 각각에 태그에 대해 클릭이벤트 적용 
+// 					// 클릭시 스코어 100점씩 추가
+// 					// 	$mole.forEach(($m) => {
+// 					// 		$m.addEventListener('click', function () {
+// 					// 		score += 100;
+// 					// 		$score.textContent = score;
+// 					// 		console.log(score);
+// 					// 		// 두더지 태그 배열에서 각각에 태그에 대해 클릭이벤트 적용 
+// 					// 		// 클릭시 스코어 100점씩 추가
+// 					// 	});
+// 					// });
+			});
+			
+		</script>
+	</body>
+</html>
